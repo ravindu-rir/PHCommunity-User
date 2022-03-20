@@ -5,10 +5,13 @@ const mongoose = require('mongoose');
 const cors = require("cors");
 require ("dotenv").config();
 
+require("./models/user")
+require("./models/post")
 
 const app = express();
 const PORT = process.env.PORT || "8088";   
 
+app.use(express.json())
 app.use(cors())
 
 //DB Connection
@@ -20,14 +23,10 @@ mongoose
   .then(() => console.log("📚 DB is Connected"))
   .catch((err) => console.log("😨 DB Connection has error",err));
 
-  require("./models/user")
-  app.use(express.json())
-
-
 
 //Middleware 
 app.use(require("./routes/auth"));
-
+app.use(require("./routes/post"));
 
 
 
