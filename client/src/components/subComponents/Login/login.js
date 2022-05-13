@@ -1,9 +1,12 @@
 
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Google from '../../subComponents/GoogleBtn/googlebtn'
 import './login.css';
 
 export default function login() {
+
+
   return (
     <div>
         {/* <!-- Section: Design Block --> */}
@@ -77,34 +80,8 @@ export default function login() {
 
                 {/* <!-- Register buttons --> */}
                 <div class="text-center">
-                  <p>or log in with:</p>
-                  <button
-                          type="button"
-                          class="btn btn-link btn-floating mx-1"
-                          >
-                    <i class="fab fa-facebook-f"></i>
-                  </button>
-
-                  <button
-                          type="button"
-                          class="btn btn-link btn-floating mx-1"
-                          >
-                    <i class="fab fa-google"></i>
-                  </button>
-
-                  <button
-                          type="button"
-                          class="btn btn-link btn-floating mx-1"
-                          >
-                    <i class="fab fa-twitter"></i>
-                  </button>
-
-                  <button
-                          type="button"
-                          class="btn btn-link btn-floating mx-1"
-                          >
-                    <i class="fab fa-github"></i>
-                  </button>
+                  <p>or Sign in with:</p>
+                      <Google buttonText="Sign In  with hhh"/>    
                 </div>
                   <hr/>
                   <div class="text-center">

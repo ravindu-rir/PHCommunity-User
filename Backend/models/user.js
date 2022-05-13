@@ -15,17 +15,26 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      required: true,
+      unique:[true, 'Email  is already exits'],
+      required: [true, 'Please Enter Email'],
+      lowercase: true,
     },
     country: {
         type: String,
         trim: true,
-        required: true,
       },
     password: {
       type: String,
       trim: true,
       required: true,
+    },
+    gpassword:{
+      type: String,
+      trim: true
+    },
+    AccountStatus: {
+      type: Boolean,
+      default:true
     },
   },
   { timestamps: true }

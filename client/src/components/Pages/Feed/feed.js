@@ -2,9 +2,11 @@
 import React from 'react'
 import Header2 from '../../subComponents/Headers/Header2/Navbar2';
 import Post from '../../subComponents/Post/post';
-
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function feed() {
+    toast("Cost Successfully Added");
   return (
     <div className='top-body-padding'>
         <Header2/>

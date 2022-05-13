@@ -1,9 +1,9 @@
 import React from 'react';
-import "./home.css"
+import "./signin.css"
 import Login from '../../subComponents/Login/login'
 import Navbar from '../../subComponents/Headers/Header1/navbar'
 
-export default function Home() {
+export default function signin() {
   return (
     <div className='top-body-padding homeContainer'> 
       <Navbar/> 
