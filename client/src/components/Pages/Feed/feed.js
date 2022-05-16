@@ -5,6 +5,9 @@ import Post from '../../subComponents/Post/post';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import PostCreate from '../../subComponents/PostCreate/postcreate';
+
+
 export default function feed() {
     toast("Cost Successfully Added");
   return (
@@ -19,6 +22,7 @@ export default function feed() {
                 </div>
 
                 <div class="col-sm-5 mt-2"> 
+                    <PostCreate/> 
                     <Post/>
                     <Post/>
                     <Post/>

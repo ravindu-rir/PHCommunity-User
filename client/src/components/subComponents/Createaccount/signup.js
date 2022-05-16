@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState} from 'react'
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './signup.css';
@@ -8,72 +8,74 @@ import Google from '../../subComponents/GoogleBtn/googlebtn'
 export default function Signup() {
 
 
-  const [firstName , setFirstName] = useState("");
-  const [lastName , setLastName] = useState("");
-  const [emailAddress , setEmailAddress] = useState("");
-  const [country , setCountry] = useState("");
-  const [password , setPassword] = useState("");
-  const [rePassword , setRePassword] = useState("");
+      const [firstName , setFirstName] = useState("");
+      const [lastName , setLastName] = useState("");
+      const [emailAddress , setEmailAddress] = useState("");
+      const [country , setCountry] = useState("");
+      const [password , setPassword] = useState("");
+      const [rePassword , setRePassword] = useState("");
 
-  const PostSignup = () =>{
-          
-           document.getElementById("signup-alert").style.display = "hide";
+      const PostSignup = () =>{
+              
+              document.getElementById("signup-alert").style.display = "hide";
 
-        if(!firstName || !lastName || !emailAddress || !country || !password || !rePassword){
-          
-          document.getElementById("signup-alert").style.display = "flex";
-          document.getElementById("signup-alert").innerHTML = "Please fill all the field!";
-        }
-        else{
-                fetch("/signup",{
-                    method:"post",
-                    headers:{
-                        "Content-Type":"application/json",
-                    },
-                    body:JSON.stringify({
+            if(!firstName || !lastName || !emailAddress || !country || !password || !rePassword){
+              
+              document.getElementById("signup-alert").style.display = "flex";
+              document.getElementById("signup-alert").innerHTML = "Please fill all the field!";
+              return
+            }
+            
+                    fetch("/signup",{
+                        method:"post",
+                        headers:{
+                            "Content-Type":"application/json",
+                        },
+                        body:JSON.stringify({
 
-                      fName:firstName, 
-                      lName:lastName, 
-                      email:emailAddress, 
-                      country:country, 
-                      password:password
+                          fName:firstName, 
+                          lName:lastName, 
+                          email:emailAddress, 
+                          country:country, 
+                          password:password,
+                          rePassword:rePassword
 
+                        })
+                    }).then(res=>res.json())
+                    .then(data => {
+
+                        if(data.error){ 
+                              document.getElementById("signup-alert").style.display = "flex";
+                              document.getElementById("signup-alert").innerHTML = data.error;  
+                        }
+                        else{
+                          toast.success(data.message,{
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                          setTimeout(function(){
+                            window.location.replace('/signin');
+                          },1000);
+                        }
+                          
+
+                      console.log("data create -", data)
+                    }).catch((err)=>{
+                      console.log("Error - ", err)
                     })
-                }).then(res=>res.json())
-                .then(data => {
+                  
 
-                    if(data.error){ 
-                          document.getElementById("signup-alert").style.display = "flex";
-                          document.getElementById("signup-alert").innerHTML = data.error;  
-                    }
-                    else{
-                      toast.success(data.message,{
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                      });
-                      setTimeout(function(){
-                        window.location.replace('/');
-                      },1000);
-                    }
-                      
-
-                  console.log("data create -", data)
-                }).catch((err)=>{
-                  console.log("Error - ", err)
-                })
-        }
-   
-    
-  }
+      }
 
 
 
   return (
     <div>
-                        <ToastContainer />
+          {/* //For Tost Messages */}
+          <ToastContainer />
 
           {/* <!-- Section: Design Block --> */}
       <section class="">

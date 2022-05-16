@@ -1,10 +1,42 @@
-import React from 'react'
-import ("./test.css")
+import { useState, useEffect } from "react";
+import { ref, uploadBytes, getDownloadURL, listAll,list } from "firebase/storage";
+import { storage } from "./firebase storage/firebase";
+import { v4 } from "uuid";
 
-export default function test() {
+export default function Test() {
+
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  const imagesListRef = ref(storage, "images/");
+  const uploadFile = () => {
+    if (imageUpload == null) return;
+    try{
+      const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+      uploadBytes(imageRef, imageUpload).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            console.log(url) //test
+            setImageUpload(url)
+        });
+      });
+    }catch(err){
+      console.log("imageUpload -", err);
+    } 
+
+  };
+
+
+
   return (
-    <div >
-    test
-</div>
-  )
+    <div className="App">
+      <input
+        type="file"
+        onChange={(event) => {
+          setImageUpload(event.target.files[0]);
+        }}
+      />
+      <button onClick={uploadFile}> Upload Image</button>
+    </div>
+  );
+
 }

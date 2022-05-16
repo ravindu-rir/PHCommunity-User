@@ -21,11 +21,11 @@ router.get('/protected', requireLogin , (req, res)=>{
 //@desc Register user
 //Access Public
 router.post("/signup", async (req, res) => {
-    const {fName, lName, email, country, password } = req.body;
+    const {fName, lName, email, country, password , rePassword } = req.body;
   try {
 
         //Check if all fields are empty
-        if(!fName || !lName || !email || !country || !password){
+        if(!fName || !lName || !email || !country || !password || !rePassword){
             return res.status(422).json({ error: "Please fill all the field" });
         }
 
@@ -35,22 +35,29 @@ router.post("/signup", async (req, res) => {
             if (user) {
               return res.status(400).json({ error: "User already exists" });
             }
+            
+            //Check Password is match or not
+            if(password !=  rePassword){
+              return res.status(400).json({ error: "Password dos't match Please recheck" });
+            }
 
-            //Hash Password
-            const hashedPassword = await bcrypt.hash(password, 10)
+            else{
+                //Hash Password
+              const hashedPassword = await bcrypt.hash(password, 10)
 
-            //Create User
-            newUser = new User({
-                fName,
-                lName,
-                email,
-                country,
-                password:hashedPassword,
-            });
-            const userCreated = await newUser.save()
-            if(userCreated){
-                return res.status(201).json({ message: "User created successfully" });
-            } 
+              //Create User
+              newUser = new User({
+                  fName,
+                  lName,
+                  email,
+                  country,
+                  password:hashedPassword,
+              });
+              const userCreated = await newUser.save()
+              if(userCreated){
+                  return res.status(201).json({ message: "User created successfully" });
+              } 
+            }
 
         }
 
@@ -92,8 +99,8 @@ router.post("/signin", async (req, res) => {
 
                   //Generate User Token
                   const token = jwt.sign({_id:savedUser._id},process.env.JWT_SECRET, { expiresIn: '1d'}); 
-                  res.json({token});        
-
+                  const {_id,fName,lName,email} = savedUser
+                  res.json({token , user:{_id,fName,lName,email } });        
                 }
                 else{
                   return res.json({ error: "Invalid Email or Password"});

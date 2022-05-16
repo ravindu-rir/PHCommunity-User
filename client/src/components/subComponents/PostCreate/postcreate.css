@@ -1,0 +1,19 @@
+.post-create-textarea{
+    outline: none;
+    resize: none;
+    border: none;
+    background-color: rgb(247 247 247);
+    padding: 5px;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+}
+
+.ImageUpload-btn{
+    color: black;
+}
+
+.post-btn{
+    font-weight: 800;
+    min-width: 10vh;
+}

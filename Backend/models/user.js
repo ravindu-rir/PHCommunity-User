@@ -30,6 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     gpassword:{
       type: String,
+      default:"",
       trim: true
     },
     AccountStatus: {

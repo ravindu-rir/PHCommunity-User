@@ -7,6 +7,8 @@ require ("dotenv").config();
 
 require("./models/user")
 require("./models/post")
+require("./models/topic")
+
 
 const app = express();
 const PORT = process.env.PORT || "8088";   
@@ -21,18 +23,20 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("📚 DB is Connected"))
-  .catch((err) => console.log("😨 DB Connection has error",err));
+  .catch((err) => console.log("😨 DB Connection has error - ",err));
 
 
 //Middleware 
 app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
+app.use(require("./routes/topic"));
+
 
 
 
 // Routes
 app.get("/", (req, res, next) =>{
-    res.send("<h1>❤️ Parenthood Community API</br> Developed By <a href='http://reachitright.digital'>Reach It Right  Sri Lanka 🇱🇰</a></h1>");
+    res.send("<h1>❤️ Parenthood Community API</br> Developed By <a href='http://reachitright.com'>Reach It Right  Sri Lanka 🇱🇰</a></h1>");
     next();
 });
  
