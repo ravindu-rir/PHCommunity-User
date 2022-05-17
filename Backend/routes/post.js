@@ -19,14 +19,14 @@ router.get('/allpost',requireLogin,(req,res)=>{
 })
 
 
-router.post('/createpost',requireLogin,(req,res)=>{
-    const {title,body,url} = req.body 
-    if(!title || !body || !url){
-      return  res.status(422).json({error:"Please add all the fields"})
+router.post('/createpost', requireLogin , (req,res)=>{
+    const {topic,body,url} = req.body 
+    if(!topic || !body){
+      return  res.status(422).json({error:"Please add all the fields " + body})
     }
     req.user.password = undefined
     const post = new Post({
-        title,
+        title:topic,
         body,
         photo:url,
         postedBy:req.user

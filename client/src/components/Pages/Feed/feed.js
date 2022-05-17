@@ -9,7 +9,7 @@ import PostCreate from '../../subComponents/PostCreate/postcreate';
 
 
 export default function feed() {
-    toast("Cost Successfully Added");
+
   return (
     <div className='top-body-padding'>
         <Header2/>

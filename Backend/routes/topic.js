@@ -4,14 +4,16 @@ const express = require("express");
 const Topic =  mongoose.model("Topic")
 
 
-router.get('/topic/get',(req,res)=>{
-    Topic.find()
-    .sort('-createdAt')
-    .then((topics)=>{
-        res.json({topics})
-    }).catch(err=>{
-        console.log(err)
-    })
+router.get('/topic/get', async(req,res)=>{
+    try{
+        const Topics = await Topic.find().sort('-createdAt')
+        return res.status(200).json({ 
+            Topics, 
+        });
+    }catch{
+        return res.status(400).json({ error: "Can't read topics" });
+    }
+    
 })
 
 

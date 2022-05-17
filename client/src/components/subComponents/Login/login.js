@@ -42,6 +42,8 @@ export default function Login() {
                           document.getElementById("signin-alert").innerHTML = data.error;  
                     }
                     else{
+                      localStorage.setItem("jwt", data.token)
+                      localStorage.setItem("user", JSON.stringify(data.user))
                       toast.success(data.message,{
                         hideProgressBar: true,
                         closeOnClick: true,
