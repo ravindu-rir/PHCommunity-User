@@ -1,15 +1,6 @@
 .Signup-Page-Container {
-    height: 100vh;
+    height: max-content;
+    min-height: 100vh;
     background: #eff2f5;
-    align-items: center;
-    justify-content: center;
+
     }
-
-.SignupContainer{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-

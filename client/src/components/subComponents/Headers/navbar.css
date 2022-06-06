@@ -1,0 +1,15 @@
+.nav-box-main{
+    min-height: 60px;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 1000;
+}
+
+.search-box-nav{
+    width: 100px;
+}
+
+.logo-hight{
+    height: 30px;
+}

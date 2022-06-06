@@ -78,30 +78,14 @@ export default function Signup() {
           <ToastContainer />
 
           {/* <!-- Section: Design Block --> */}
-      <section class="">
+      <section>
       {/* <!-- Jumbotron --> */}
-      <div
-        class="px-4 py-5 px-md-5 text-center text-lg-start"
-
-        >
-      <div class="container">
-        <div class="row gx-lg-5 align-items-center">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <h1 class="my-5 display-3 fw-bold ls-tight">
-              The best offer <br />
-              <span class="text-primary">for your business</span>
-            </h1>
-            <p >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-              quibusdam tempora at cupiditate quis eum maiores libero
-              veritatis? Dicta facilis sint aliquid ipsum atque?
-            </p>
-          </div>
-
-          <div class="col-lg-6 mb-5 mb-lg-0">
+      <div>
+      <div class="container-fluid">
+        <div>
+          <div class="">
             <div class="card">
-            <h1 class="text-center mt-5 display-14 fw-bold ls-tight">Sign Up</h1>
+            <h1 class="text-center mt-3 display-14 fw-bold ls-tight">Sign Up</h1>
               <div class="card-body py-1 px-md-5">
 
               <div class="alert alert-danger" id="signup-alert" role="alert"></div>
@@ -110,14 +94,13 @@ export default function Signup() {
               <div>
                   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
                   <div class="row">
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-3">
                       <div class="form-outline">
 
                         <label class="form-label" for="form3Example1">First name</label>
 
                         <input
                               type="text"
-                              id="form3Example1"
                               class="form-control"
                               value={firstName}
                               onChange={(e) => setFirstName(e.target.value)}
@@ -128,11 +111,10 @@ export default function Signup() {
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                      <label class="form-label" for="form3Example2">Last name</label >
+                      <label class="form-label" >Last name</label >
 
                         <input
                               type="text"
-                              id="form3Example2"
                               class="form-control"
                               value={lastName}
                               onChange={(e) => setLastName(e.target.value)}
@@ -144,11 +126,10 @@ export default function Signup() {
                   </div>
 
                   {/* <!-- Email input --> */}
-                  <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3">Email address</label>
+                  <div class="form-outline mb-3">
+                  <label class="form-label" >Email address</label>
                     <input
                           type="email"
-                          id="form3Example3"
                           class="form-control"
                           value={emailAddress}
                           onChange={(e) => setEmailAddress(e.target.value)}
@@ -157,10 +138,9 @@ export default function Signup() {
                   </div>
 
                   {/* <!-- Password input --> */}
-                  <div class="form-outline mb-4">
-                      <label class="form-label" for="form3Example4">Country</label>
+                  <div class="form-outline mb-3">
+                      <label class="form-label">Country</label>
                       <select type="country"
-                              id="form3Example4"
                               class="form-control" 
                               value={country}
                               onChange={(e) => setCountry(e.target.value)}
@@ -171,11 +151,10 @@ export default function Signup() {
                           <option value="Sri Lanka">Sri Lanka</option>
                       </select>
                   </div>
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form3Example4">Password</label>
+                  <div class="form-outline mb-3">
+                    <label class="form-label" >Password</label>
                       <input
                             type="password"
-                            id="form3Example4"
                             class="form-control"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -183,11 +162,10 @@ export default function Signup() {
                       />
                   </div>
 
-                  <div class="form-outline mb-4">
-                    <label class="form-label" for="form3Example4">Reenter Password</label>
+                  <div class="form-outline mb-3">
+                    <label class="form-label" >Reenter Password</label>
                       <input
                             type="password"
-                            id="form3Example4"
                             class="form-control"
                             value={rePassword}
                             onChange={(e) => setRePassword(e.target.value)}
@@ -198,7 +176,7 @@ export default function Signup() {
                   {/* <!-- Submit button --> */}
                   <button
                           type="submit"
-                          class="mb-3 btn btn-primary btn-mg btn-block form-control"
+                          class="mb-2 btn btn-primary btn-mg btn-block form-control"
                           onClick={() => PostSignup() }
                           >
                     Sign up

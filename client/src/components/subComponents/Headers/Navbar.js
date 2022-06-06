@@ -1,13 +1,13 @@
 import React from 'react';
-import './navbar2.css';
+import './navbar.css';
 
 
 
-function Navbar2() {
+function Navbar() {
   return (
     <div>
                 {/* <!-- Navbar--> */}
-          <nav className="navbar navbar-expand-lg navbar-light bg-light nav-box-main">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light nav-box-main navbar-static-top">
             <div className="container-fluid justify-content-between">
               {/* <!-- Left elements --> */}
               <div className="d-flex">
@@ -121,4 +121,4 @@ function Navbar2() {
   );
 }
 
-export default Navbar2;
+export default Navbar;

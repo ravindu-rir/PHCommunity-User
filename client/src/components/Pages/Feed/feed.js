@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Header2 from '../../subComponents/Headers/Header2/Navbar2';
+import Header from '../../subComponents/Headers/Navbar';
 import Post from '../../subComponents/Post/post';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,7 +12,7 @@ export default function feed() {
 
   return (
     <div className='top-body-padding'>
-        <Header2/>
+        <Header/>
 
         <div class="container-fluid text-center">    
             <div class="row content">
