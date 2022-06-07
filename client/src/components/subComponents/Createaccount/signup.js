@@ -1,12 +1,12 @@
-import React,{useState} from 'react'
+import React, { useState, useMemo } from 'react'
 import {ToastContainer, toast} from 'react-toastify';
+import countryList from 'react-select-country-list'
 import 'react-toastify/dist/ReactToastify.css';
 import './signup.css';
 import {Link} from 'react-router-dom'
 import Google from '../../subComponents/GoogleBtn/googlebtn'
 
 export default function Signup() {
-
 
       const [firstName , setFirstName] = useState("");
       const [lastName , setLastName] = useState("");
@@ -15,17 +15,23 @@ export default function Signup() {
       const [password , setPassword] = useState("");
       const [rePassword , setRePassword] = useState("");
 
+      const countryOptions = useMemo(() => countryList().getData(), [])
+
+
       const PostSignup = () =>{
+              console.log(firstName)
               
               document.getElementById("signup-alert").style.display = "hide";
 
             if(!firstName || !lastName || !emailAddress || !country || !password || !rePassword){
               
               document.getElementById("signup-alert").style.display = "flex";
-              document.getElementById("signup-alert").innerHTML = "Please fill all the field!";
+              document.getElementById("signup-alert").innerHTML = "⚠️ Please fill all the field!";
               return
             }
-            
+
+
+
                     fetch("/signup",{
                         method:"post",
                         headers:{
@@ -87,9 +93,6 @@ export default function Signup() {
             <div class="card">
             <h1 class="text-center mt-3 display-14 fw-bold ls-tight">Sign Up</h1>
               <div class="card-body py-1 px-md-5">
-
-              <div class="alert alert-danger" id="signup-alert" role="alert"></div>
-
                 {/* Signup Forum Start */}
               <div>
                   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
@@ -145,10 +148,13 @@ export default function Signup() {
                               value={country}
                               onChange={(e) => setCountry(e.target.value)}
                               required
-                              >
-                          <option value="" default>--</option>
-                          <option value="India">India</option>
-                          <option value="Sri Lanka">Sri Lanka</option>
+                              >                         
+                          <option value="" default hidden> Select Your Country </option>
+                      {countryOptions.map(countries=>{
+                        return(                                
+                          <option value={countries.value}>{countries.label}</option>
+                         )
+                      })}
                       </select>
                   </div>
                   <div class="form-outline mb-3">
@@ -160,6 +166,8 @@ export default function Signup() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                       />
+                      <span> <i class="fa-solid fa-key text-danger"></i> Password must be at least 8 characters long.</span> <br/>
+                      <span><i class="fa-solid fa-key text-danger"></i> Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character.</span>  <br/>
                   </div>
 
                   <div class="form-outline mb-3">
@@ -172,6 +180,9 @@ export default function Signup() {
                             required
                       />
                   </div>
+                  
+                  {/* Validation Alerts */}
+                  <div class="alert" id="signup-alert" role="alert"></div>
 
                   {/* <!-- Submit button --> */}
                   <button

@@ -38,8 +38,8 @@ export default function Login() {
                 .then(data => {
 
                     if(data.error){ 
-                          document.getElementById("signin-alert").style.display = "flex";
-                          document.getElementById("signin-alert").innerHTML = data.error;  
+                      document.getElementById("signin-alert").style.display = "flex";
+                      document.getElementById("signin-alert").innerHTML = data.error;  
                     }
                     else{
                       localStorage.setItem("jwt", data.token)
@@ -69,24 +69,11 @@ export default function Login() {
         {/* <!-- Section: Design Block --> */}
           <section class="login-section ">
             {/* <!-- Jumbotron --> */}
-            <div class="px-4 py-5 px-md-5 text-center text-lg-start" >
-              <div class="">
-                <div class="row gx-lg-5 align-items-center">
-                  <div class="col-lg-6 mb-5 mb-lg-0">
-                    <h1 class="my-5 display-3 fw-bold ls-tight">
-                      The best offer <br />
-                      <span class="text-primary">for your business</span>
-                    </h1>
-                    <p >
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-                      quibusdam tempora at cupiditate quis eum maiores libero
-                      veritatis? Dicta facilis sint aliquid ipsum atque?
-                    </p>
-                  </div>
-
-                  <div class="col-lg-6 mb-0 mb-lg-0">
-                    <div class="card">
+            <div>
+      <div class="container-fluid">
+        <div>
+          <div class="">
+            <div class="card">
                     <h1 class="text-center mt-5 display-14 fw-bold ls-tight">Sign In</h1>
                       <div class="card-body py-5 px-md-5">
                           <div class="alert alert-danger" id="signin-alert" role="alert"></div>

@@ -1,6 +1,6 @@
 import React from 'react'
-import axios from 'axios'
 import { GoogleLogin } from 'react-google-login';
+import {ToastContainer, toast} from 'react-toastify';
 
 
 export default function googlebtn() {
@@ -20,7 +20,21 @@ export default function googlebtn() {
           })
       }).then(res=>res.json())
       .then(data => {
-        console.log("data create -", data)
+        if(data.error){ 
+          toast.error(data.error,{
+            position: "top-right",
+            autoClose: false,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+        else{
+            window.location.replace('/');
+        }
       })
     
       }
@@ -35,7 +49,7 @@ export default function googlebtn() {
 
                 <GoogleLogin
                         clientId="688919940654-hm29qeu96n9i9ait295f553acvhh7m7o.apps.googleusercontent.com"
-                        buttonText="Sign in  with Google"
+                        buttonText="Sign in / Sign up with Google"
                         onSuccess={responseSuccessGoogle}
                         onFailure={responseErrorGoogle}
                         cookiePolicy={'single_host_origin'}
