@@ -17,3 +17,9 @@
     font-weight: 800;
     min-width: 10vh;
 }
+
+.post-create-image-pri{
+    width: 100%;
+    height: max-content;
+    margin-bottom: 5px;
+}

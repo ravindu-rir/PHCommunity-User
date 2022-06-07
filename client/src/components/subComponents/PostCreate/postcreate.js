@@ -4,16 +4,18 @@ import {ToastContainer, toast} from 'react-toastify';
 import { ref, uploadBytes, getDownloadURL, listAll,list } from "firebase/storage";
 import { storage } from "../../firebase storage/firebase";
 import { v4 } from "uuid";
+import Compressor from 'compressorjs';
 import {useNavigate} from 'react-router-dom'
 
 export default function Postcreate() {
 
     const imgFileRef = useRef();
-    const navigate = useNavigate()
-    const [topic,setTopic] = useState("")
-    const [body,setBody] = useState("")
+    const navigate = useNavigate();
+    const [topic,setTopic] = useState("");
+    const [body,setBody] = useState("");
     const [imageUpload, setImageUpload] = useState("");
-    const [url,setUrl] = useState("")
+    const [url,setUrl] = useState("");
+    const [compressedFile, setCompressedFile] = useState(null);
 
     const [topicdata , setTopicData] = useState([]);
 
@@ -24,6 +26,17 @@ export default function Postcreate() {
 
       }, []);
 
+
+      useEffect(() => {
+
+        if(imageUpload){
+          document.getElementById("image-pri").src=URL.createObjectURL(imageUpload);
+          console.log(imageUpload)
+
+        }
+
+      }, [imageUpload]);
+
       useEffect(() => {
 
         if(url){
@@ -31,6 +44,15 @@ export default function Postcreate() {
         }
 
       }, [url]);
+
+
+      useEffect(() => {
+
+        if(compressedFile){
+          uploadFile();
+        }
+
+      }, [compressedFile]);
 
       const getTopicData = () =>{
         fetch("/topic/get")
@@ -58,14 +80,25 @@ export default function Postcreate() {
         });
       }
 
+      // image compressor using compressorJS
+      const ImgCompressor  = () => {
+        new Compressor(imageUpload, {
+          quality: 0.0, // 0.0 = 100% compressed rate
+          success: (compressedResult) => {
+            // compressedResult has the compressed file.      
+            setCompressedFile(compressedResult)
+        },
+        });
+      }
+
 
       const uploadFile =  () => {
         if (imageUpload == null){
           return;
         }     
         else{
-              const imageRef = ref(storage, `posts/${imageUpload.name + v4()}`);
-               uploadBytes(imageRef, imageUpload).then((snapshot) => {
+              const imageRef = ref(storage, `posts/${compressedFile.name + v4()}`);
+               uploadBytes(imageRef, compressedFile).then((snapshot) => {
                   getDownloadURL(snapshot.ref).then((imageurl) => {
                     console.log(imageurl) //test
                     setUrl(imageurl)
@@ -79,8 +112,15 @@ export default function Postcreate() {
 
       const PostCreateData =  () =>{
 
+        if(!topic || !body ){
+          
+          document.getElementById("createPost-alert").style.display = "flex";
+          document.getElementById("createPost-alert").innerHTML = "Please fill all the field!";
+          return
+        }
+
         if(imageUpload){
-              uploadFile()
+              ImgCompressor()
               console.log("URL - " + url)
         }
         else{
@@ -92,12 +132,6 @@ export default function Postcreate() {
 
       const PostCreate = () =>{
         console.log("hello upload")
-        if(!topic || !body ){
-          
-          document.getElementById("createPost-alert").style.display = "flex";
-          document.getElementById("createPost-alert").innerHTML = "Please fill all the field!";
-          return
-        }
         
                 fetch("/createpost",{
                     method:"post",
@@ -171,6 +205,9 @@ export default function Postcreate() {
                           onChange={(e) => setBody(e.target.value)}
                           required
                           ></textarea>
+                        {imageUpload && 
+                          <img  className="post-create-image-pri"  id="image-pri" src="#" alt="image" />  
+                        } 
 
                         {/* Alert */}
                         <div class="text-danger mb-1" id="createPost-alert" role="alert"></div>
@@ -181,11 +218,12 @@ export default function Postcreate() {
                                 ref={imgFileRef}
                                 className="d-none" 
                                 type="file" 
+                                accept="image/*"
                                 onChange={(event) => {
                                   setImageUpload(event.target.files[0]);
                                 }}
-                            />        
-
+                            />     
+                        {!imageUpload && 
                             <button  
                               onClick={() => imgFileRef.current.click()}
                               type="button" 
@@ -193,6 +231,17 @@ export default function Postcreate() {
                               <i class="fa-light fa-folder-image"></i> 
                               Add Image
                            </button>  
+                        }
+
+                        {imageUpload && 
+                            <button  
+                              onClick={ () => setImageUpload("") }
+                              type="button" 
+                              class="btn btn-danger "> 
+                              <i class="fa-light fa-folder-image"></i> 
+                              Remove Image
+                           </button>  
+                        }
 
                             <div className="d-flex flex-row justify-content-end">
                                 <button type="button" 
