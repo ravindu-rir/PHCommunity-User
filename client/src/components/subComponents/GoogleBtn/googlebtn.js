@@ -33,6 +33,8 @@ export default function googlebtn() {
           });
         }
         else{
+           localStorage.setItem("jwt", data.token)
+           localStorage.setItem("user", JSON.stringify(data.user))
             window.location.replace('/');
         }
       })

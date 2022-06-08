@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import {ToastContainer, toast} from 'react-toastify';
-import countryList from 'react-select-country-list'
 import 'react-toastify/dist/ReactToastify.css';
+import countryList from 'react-select-country-list'
 import './signup.css';
 import {Link} from 'react-router-dom'
 import Google from '../../subComponents/GoogleBtn/googlebtn'

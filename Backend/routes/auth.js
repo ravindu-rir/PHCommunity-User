@@ -15,9 +15,8 @@ var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9
 
 
 router.get('/protected', requireLogin , (req, res)=>{
-
-  res.send("Hello User")
-
+  console.log("Hi protected")
+  return res.status(201).json({ states:true });
 });
 
 
@@ -192,7 +191,8 @@ router.post('/googleauth', async (req, res) => {
                                             if(doMatch){
                                               //Generate User Token
                                               const token = jwt.sign({_id:savedUser._id},process.env.JWT_SECRET, { expiresIn: '1d'}); 
-                                              res.json({token});        
+                                              const {_id,fName,lName,email} = savedUser
+                                              res.json({token , user:{_id,fName,lName,email } });         
 
                                             }
                                             else{
