@@ -4,6 +4,12 @@ import './navbar.css';
 
 
 function Navbar() {
+
+ const LogOut = () => {
+    localStorage.clear()
+    window.location.replace('/signin');
+ }
+
   return (
     <div>
                 {/* <!-- Navbar--> */}
@@ -100,17 +106,18 @@ function Navbar() {
                   </a>
                 </li>
 
-                <li className="nav-item dropdown me-3 me-lg-1">
-                  <a
-                    className="nav-link dropdown-toggle hidden-arrow"
-                    href="#PH"
-                    id="navbarDropdownMenuLink"
-                    role="button"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                  <i className="fa-solid fa-gears"></i>
-                  </a>
+                <li className="nav-item dropdown me-3 me-lg-1" >
+                    <div className="dropdown dropleft">
+                        <a type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown">
+                              <i class="fa-solid fa-gear"></i>
+                        </a>
+                        <ul className="dropdown-menu" style={{right: 0, left: 'auto'}}>
+                              <li>  <a onClick={() => LogOut()} className="dropdown-item" href="#">
+                                                     <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    </a>
+                              </li>
+                        </ul>
+                    </div>
                 </li>
               </ul>
               {/* <!-- Right elements --> */}

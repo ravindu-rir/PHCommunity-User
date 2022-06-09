@@ -8,6 +8,7 @@ import "./feed.css"
 export default function Feed() {
 
     const [post,setPost] = useState([])
+    const user = JSON.parse(localStorage.getItem("user"))
 
     useEffect(()=>{        
         PostRetrieve();
@@ -50,11 +51,33 @@ export default function Feed() {
                                             <img className="rounded-circle mr-9" width={45} src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
                                         </div>
                                         <div className="post-user-box">
-                                            <div className="h5 m-0">{postData.postedBy.lName} &nbsp; {postData.postedBy.lName}</div>
-                                            <div className="text-start h7 text-muted float-l">@JanithDil</div>
+                                            <div className="h5 m-0">{postData.postedBy.fName} {postData.postedBy.lName}</div>
+                                            <div className="text-start text-muted float-l"> <i className="fa fa-clock-o" /> 10 min ago</div>
                                         </div>
                                         </div>
-                                        <div className="text-muted h7-text mb-2"> <i className="fa fa-clock-o" />10 min ago</div>
+
+                                        <div> 
+                                            <div className="dropdown dropdown-menu-end">
+                                                    <button type="button" className="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                                            <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <ul className="dropdown-menu">
+                                                    {postData.postedBy._id == user._id  &&
+                                                        <>
+                                                            <li><a className="dropdown-item" href="#">Edit Post</a></li>
+                                                            <li><a className="dropdown-item" href="#">Delete Post</a></li>
+                                                        </>
+                                                    }
+                                                    {postData.postedBy._id != user._id  &&
+                                                        <>
+                                                            <li><a className="dropdown-item" href="#">Report Post</a></li>
+
+                                                        </>
+                                                    }
+                                                    </ul>
+                                            </div>
+                                        </div>
+
                                     </div>
                             </div>
 
@@ -69,7 +92,7 @@ export default function Feed() {
                                 </div>
                             } 
                             </div>
-                            <div className="d-flex justify-content-around m-2">
+                            <div className="d-flex justify-content-around mt-2">
                                     <a href="#" className="text-decoration-none">76 Likes</a>
                                     <a href="#" className="text-decoration-none">6 Comments</a>
                                     </div>

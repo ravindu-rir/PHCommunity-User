@@ -83,7 +83,7 @@ export default function Postcreate() {
       // image compressor using compressorJS
       const ImgCompressor  = () => {
         new Compressor(imageUpload, {
-          quality: 0.8, // 0.0 = 80% compressed rate
+          quality: 0.6, //compressed rate
           success: (compressedResult) => {
             // compressedResult has the compressed file.      
             setCompressedFile(compressedResult)
