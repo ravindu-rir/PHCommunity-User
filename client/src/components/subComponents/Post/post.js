@@ -71,13 +71,43 @@ export default function Post({ SetPostData }) {
       })
   }
 
+
+  const makeComment = (text,postId)=>{
+    console.log("hi" + postId)
+    fetch('/comment',{
+        method:"put",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+localStorage.getItem("jwt")
+        },
+        body:JSON.stringify({
+            postId,
+            text
+        })
+    }).then(res=>res.json())
+    .then(result=>{
+        const newData = getPostData.map(post => {
+            if(post._id == result._id){
+                return result
+            }
+            else{
+                return post
+            }
+        })
+        setgetPostData(newData);
+    }).catch(err=>{
+        console.log(err)
+    })
+ }
+
+
   return (
     <div>
         {( getPostData.length != 0  || !getPostData ? 
                             
                         getPostData.map(postData=>{ 
                             return( 
-                                <div className="card gedf-card">
+                                <div className="card gedf-card mb-4">
                                         <div className="card-header">
                                                 <div className="d-flex justify-content-between align-items-center">
                                                     <div className="d-flex justify-content-between align-items-center">
@@ -131,16 +161,57 @@ export default function Post({ SetPostData }) {
                                                         {( postData.likes.length > 1 || postData.likes.length == 0   ?  " Likes" : " Like" )}
                                                 </a>
 
-                                                <a href="#" className="text-decoration-none">{postData.comments.length} Comments</a>
-                                                </div>
-                                                <div className="d-flex justify-content-around card-footer ">
+                                                <a className="text-decoration-none">{postData.comments.length} 
+                                                        {( postData.comments.length > 1 || postData.comments.length == 0   ?  " Comments" : " Comment" )}
+                                                </a>
+                                        </div>
+                                        <div className="d-flex justify-content-around card-footer ">
                                                 { !postData.likes.includes(user._id)
                                                   ?  <a className="card-link text-decoration-none" onClick={()=> {likePost(postData._id)}} ><i className="fa fa-gittip " /> Like</a>
                                                   :  <a className="card-link text-decoration-none text-danger" onClick={()=> {unlikePost(postData._id)}} ><i className="fa fa-gittip " /> Like</a>
 
                                                 }
+                                                
                                                 <a href="#" className="card-link text-decoration-none"><i className="fa fa-comment" /> Comment</a>
                                                 <a href="#" className="card-link text-decoration-none"><i className="fa fa-mail-forward" /> Share</a>
+                                        </div>
+
+                                        <div className="p-2 overflow-hidden">
+                                               <form   onSubmit={(e)=>{
+                                                    e.preventDefault()
+                                                    makeComment(e.target[0].value, postData._id)
+                                                }}>
+                                                    <div class="row p-0 m-0">
+                                                        <div class="col-10">
+                                                             <textarea type="text" rows="1" class="form-control m-0" placeholder="Comment"/>
+                                                        </div>
+                                                        <div class="col-2 pl-0">
+                                                             <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-paper-plane"></i> </button>
+                                                        </div>
+                                                    </div>
+                                               </form>
+                                        </div>
+
+                                        <div>
+                                            {
+                                                postData.comments.map(record=>{
+                                                    return(         
+                                                        <div key={record._id} className="d-flex align-items-center m-2">
+                                                            <div>
+                                                                <img className="rounded-circle m-2" width={30} src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"/>
+                                                            </div>
+                                                            <div className="ml-2">
+                                                                    <div>
+                                                                        <p className="m-0 p-0 fs-6 fw-bolder">{record.postedBy.fName} {record.postedBy.lName}</p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <p className="m-0  p-0 text-start">{record.text}</p>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                            )
+                                                                })
+                                            }
                                         </div>
                                 </div>
                         ) })

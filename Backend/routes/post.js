@@ -57,8 +57,10 @@ router.put('/like',requireLogin,(req,res)=>{
         $push:{likes:req.user._id}
     },{
         new:true
-    }).exec((err,result)=>{
-        console.log(result)
+    })
+    .populate("comments.postedBy","_id lName fName")
+    .populate("postedBy","_id lName fName")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }else{
@@ -73,7 +75,10 @@ router.put('/unlike',requireLogin,(req,res)=>{
         $pull:{likes:req.user._id}
     },{
         new:true
-    }).exec((err,result)=>{
+    })
+    .populate("comments.postedBy","_id lName fName")
+    .populate("postedBy","_id lName fName")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }else{
