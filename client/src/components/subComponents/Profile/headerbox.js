@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ("./headerbox.css")
 
 
 export default function headerbox(){
+
+    const profile = ()=>{
+        useEffect(()=>{
+            fetch('/mypost',{
+                headers:{
+                    "Authorization":"Bearer"+
+                }
+            })
+        },[])
   return (
     <div class="row py-2">
     <div class="col-md-8 mx-auto">
@@ -52,6 +61,7 @@ export default function headerbox(){
     </div>
 </div>
   )
+}
 }
 
 
